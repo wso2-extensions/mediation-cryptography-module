@@ -1,0 +1,41 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.1.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.1.0
+                              http://maven.apache.org/xsd/assembly-2.1.0.xsd">
+    <id>connector</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>src/main/resources</directory>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>connector.xml</include>
+                <include>descriptor.yml</include>
+                <include>**/component.xml</include>
+                <include>**/*.xml</include>
+                <include>icon/**</include>
+                <include>uischema/**</include>
+                <include>outputschema/**</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+
+    <dependencySets>
+        <dependencySet>
+            <outputDirectory>lib</outputDirectory>
+            <useProjectArtifact>true</useProjectArtifact>
+            <scope>runtime</scope>
+            <!-- Bundle the module's own jar and mi-connector-core (AbstractConnectorOperation /
+                 handleConnectorResponse / PayloadUtils), which the MI 4.6.0 runtime does not ship.
+                 Bouncy Castle, synapse and gson are provided by the runtime. -->
+            <includes>
+                <include>org.wso2.integration.connector:mi-cryptography-module</include>
+                <include>org.wso2.integration.connector.core:mi-connector-core</include>
+            </includes>
+        </dependencySet>
+    </dependencySets>
+</assembly>

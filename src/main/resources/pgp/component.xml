@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="pgp" displayName="PGP Cryptography" type="synapse/template">
+    <subComponents>
+        <component name="pgpEncrypt">
+            <displayName>PGP Encrypt</displayName>
+            <file>pgpEncrypt.xml</file>
+            <description>Encrypt the input for a recipient using their PGP public key.</description>
+        </component>
+        <component name="pgpDecrypt">
+            <displayName>PGP Decrypt</displayName>
+            <file>pgpDecrypt.xml</file>
+            <description>Decrypt the input using your PGP private key and passphrase.</description>
+        </component>
+        <component name="pgpSign">
+            <displayName>PGP Sign</displayName>
+            <file>pgpSign.xml</file>
+            <description>Sign the input with your PGP private key.</description>
+        </component>
+        <component name="pgpVerify">
+            <displayName>PGP Verify</displayName>
+            <file>pgpVerify.xml</file>
+            <description>Verify a signed message with the sender's PGP public key.</description>
+        </component>
+        <component name="pgpSignAndEncrypt">
+            <displayName>PGP Sign and Encrypt</displayName>
+            <file>pgpSignAndEncrypt.xml</file>
+            <description>Sign with your private key, then encrypt for the recipient (outbound).</description>
+        </component>
+        <component name="pgpDecryptAndVerify">
+            <displayName>PGP Decrypt and Verify</displayName>
+            <file>pgpDecryptAndVerify.xml</file>
+            <description>Decrypt with your private key, then verify the sender's signature (inbound).</description>
+        </component>
+    </subComponents>
+</component>

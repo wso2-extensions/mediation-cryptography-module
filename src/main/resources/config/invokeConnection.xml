@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="invokeConnection" onError="fault" xmlns="http://ws.apache.org/ns/synapse">
+    <sequence>
+        <!--
+          Intentionally empty. Operations call this template with configKey="<connectionName>";
+          the configKey makes Synapse resolve that connection local entry and mediate its
+          <cryptography.init> body, which runs PgpKeyStoreInit and registers the key store.
+        -->
+    </sequence>
+</template>

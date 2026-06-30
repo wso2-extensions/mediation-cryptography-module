@@ -1,0 +1,58 @@
+{
+    "name": "Cryptography",
+    "owner": "WSO2",
+    "product": "MI",
+    "category": "Developer Tools",
+    "documentationUrl": "https://mi.docs.wso2.com/en/latest/reference/connectors/",
+    "mavenGroupId": "org.wso2.integration.connector",
+    "mavenArtifactId": "mi-cryptography-module",
+    "description": "Cryptography module for WSO2 Integrator: MI. Provides in-line OpenPGP (RFC 9580 / RFC 4880) encrypt, decrypt, sign, verify and the combined sign-then-encrypt / decrypt-then-verify message-mediation operations, built on Bouncy Castle.",
+    "status": "Active",
+    "rank": 1,
+    "type": "Connector",
+    "labels": [
+        "module"
+    ],
+    "releases": [
+        {
+            "tagName": "v1.0.0",
+            "products": [
+                "MI 4.6.0"
+            ],
+            "operations": [
+                {
+                    "name": "pgpEncrypt",
+                    "description": "Encrypt the input for a recipient using their PGP public key.",
+                    "isHidden": false
+                },
+                {
+                    "name": "pgpDecrypt",
+                    "description": "Decrypt the input using your PGP private key and passphrase.",
+                    "isHidden": false
+                },
+                {
+                    "name": "pgpSign",
+                    "description": "Sign the input with your PGP private key.",
+                    "isHidden": false
+                },
+                {
+                    "name": "pgpVerify",
+                    "description": "Verify a signed message with the sender's PGP public key.",
+                    "isHidden": false
+                },
+                {
+                    "name": "pgpSignAndEncrypt",
+                    "description": "Sign with your private key, then encrypt for the recipient (outbound).",
+                    "isHidden": false
+                },
+                {
+                    "name": "pgpDecryptAndVerify",
+                    "description": "Decrypt with your private key, then verify the sender's signature (inbound).",
+                    "isHidden": false
+                }
+            ],
+            "connections": [],
+            "isHidden": false
+        }
+    ]
+}

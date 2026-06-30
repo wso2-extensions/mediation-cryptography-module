@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.wso2.integration.connector</groupId>
+    <artifactId>mi-cryptography-module</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>WSO2 MI - Cryptography Module</name>
+    <description>
+        Cryptography message-mediation module for WSO2 Integrator: MI, providing
+        in-line encrypt, decrypt, sign and verify operations built on Bouncy Castle.
+        The module is designed to host multiple cryptography implementations.
+    </description>
+
+    <properties>
+        <module.name>cryptography</module.name>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <connector.core.version>0.9.3</connector.core.version>
+        <synapse.version>4.0.0-wso2v149</synapse.version>
+        <bouncycastle.version>1.84</bouncycastle.version>
+        <commons.io.version>2.16.1</commons.io.version>
+        <commons.logging.version>1.2</commons.logging.version>
+
+        <connector.name>cryptography</connector.name>
+    </properties>
+
+    <dependencies>
+        <!--
+          mi-connector-core provides AbstractConnectorOperation (the execute/responseVariable/
+          overwriteBody contract), handleConnectorResponse (builds the {payload, attributes,
+          headers} response variable), getParameter and PayloadUtils. The MI 4.6.0 runtime does
+          not ship it, so it is bundled into the connector's lib/ (see assemble-connector.xml).
+          Its own dependencies (synapse, gson) are already provided by the runtime.
+        -->
+        <dependency>
+            <groupId>org.wso2.integration.connector.core</groupId>
+            <artifactId>mi-connector-core</artifactId>
+            <version>${connector.core.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.synapse</groupId>
+            <artifactId>synapse-core</artifactId>
+            <version>${synapse.version}</version>
+            <scope>provided</scope>
+            <!--
+              synapse-core drags in legacy Bouncy Castle 1.69 jdk15on artifacts (via its bcpkix
+              orbit bundle) that collide with the 1.84 jdk18on jars this module builds against and
+              bundles. They shadow 1.84 on the build/test classpath, causing NoSuchMethodError against
+              the newer BC API (e.g. KeyIdentifier / BigIntegers). Exclude them so 1.84 resolves
+              unambiguously; the MI runtime supplies its own BC at deploy time.
+            -->
+            <exclusions>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcpkix-jdk15on</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bouncycastle</groupId>
+                    <artifactId>bcutil-jdk15on</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcpg-jdk18on</artifactId>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>${bouncycastle.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>${commons.logging.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${module.name}-module-${project.version}</finalName>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>21</source>
+                    <target>21</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.7.1</version>
+                <configuration>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assemble-connector.xml</descriptor>
+                    </descriptors>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-connector</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>wso2-nexus</id>
+            <name>WSO2 Maven2 Repository</name>
+            <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>wso2-nexus</id>
+            <name>WSO2 Maven2 Repository</name>
+            <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

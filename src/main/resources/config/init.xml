@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="init" onError="fault" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="connectionType" description="Key store type: PGP_PRIVATE_KEY or PGP_PUBLIC_KEY."/>
+    <parameter name="name" description="Unique name the connection is identified by."/>
+    <parameter name="publicKeyPath" description="Public key-ring location, e.g. resources:keys/partner.asc (recommended); env:NAME; inline armored; or a file path. Legacy registry (gov:/..., conf:/...) also supported."/>
+    <parameter name="privateKeyPath" description="Secret key-ring location, e.g. resources:keys/alice-private.asc (recommended); env:NAME; inline armored; or a file path. Legacy registry (gov:/..., conf:/...) also supported."/>
+    <parameter name="keyIdentifier" description="Bound key identifier: a full fingerprint or a 16-hex 64-bit Key ID."/>
+    <parameter name="passphrase" description="Passphrase protecting the secret key; use a secure expression (e.g. $secret:...)."/>
+    <sequence>
+        <property name="connectionType" expression="$func:connectionType"/>
+        <property name="name" expression="$func:name"/>
+        <property name="publicKeyPath" expression="$func:publicKeyPath"/>
+        <property name="privateKeyPath" expression="$func:privateKeyPath"/>
+        <property name="keyIdentifier" expression="$func:keyIdentifier"/>
+        <property name="passphrase" expression="$func:passphrase"/>
+        <class name="org.wso2.carbon.connector.cryptography.pgp.connection.PgpKeyStoreInit"/>
+    </sequence>
+</template>

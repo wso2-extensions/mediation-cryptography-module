@@ -1,0 +1,257 @@
+{
+  "connectorName": "cryptography",
+  "operationName": "pgpSignAndEncrypt",
+  "title": "PGP Sign and Encrypt",
+  "help": "<h1>PGP Sign and Encrypt</h1><b>Outbound combined operation: sign with your private key, then encrypt for the recipient with their public key.</b>",
+  "elements": [
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "inputType",
+              "displayName": "Input Type",
+              "inputType": "combo",
+              "defaultValue": "BINARY",
+              "required": "false",
+              "helpTip": "How the input is read. BINARY (default) treats the payload as raw bytes — correct for files and any binary content. Use TEXT for text/JSON payloads you want charset-handled (e.g. email bodies).",
+              "comboValues": [
+                "TEXT",
+                "BINARY"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "charset",
+              "displayName": "Charset",
+              "inputType": "stringOrExpression",
+              "defaultValue": "UTF-8",
+              "required": "false",
+              "helpTip": "Charset for TEXT input. Default: UTF-8.",
+              "enableCondition": [
+                {
+                  "inputType": "TEXT"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "inputSource",
+              "displayName": "Input Source",
+              "inputType": "combo",
+              "defaultValue": "Message Body",
+              "required": "false",
+              "helpTip": "Where the input comes from. 'Message Body' (default) processes the raw message payload — correct for files and binary. 'Expression' reads from a variable or field via Source Content.",
+              "comboValues": [
+                "Message Body",
+                "Expression"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "sourceContent",
+              "displayName": "Source Content",
+              "inputType": "stringOrExpression",
+              "defaultValue": "",
+              "required": "false",
+              "helpTip": "The input expression to read from (e.g. ${vars.x} or ${payload.field}). Shown when Input Source is 'Expression'.",
+              "enableCondition": [
+                {
+                  "inputSource": "Expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Signing Key (yours)",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "signingConfigKey",
+                    "displayName": "Signing Key",
+                    "inputType": "connection",
+                    "inputTypeDisplayName": "Add New Key",
+                    "inputTypeDescription": "Please select a key type to create a key.",
+                    "allowedConnectionTypes": [
+                      "PGP_PRIVATE_KEY"
+                    ],
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "Your private key connection used to sign. Only PGP Private Key connections are selectable here."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Recipient Key",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "encryptionConfigKey",
+                    "displayName": "Recipient Key",
+                    "inputType": "connection",
+                    "inputTypeDisplayName": "Add New Key",
+                    "inputTypeDescription": "Please select a key type to create a key.",
+                    "allowedConnectionTypes": [
+                      "PGP_PUBLIC_KEY"
+                    ],
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "The recipient's public key connection used to encrypt. Only PGP Public Key connections are selectable here."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Algorithm Options",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "symmetricKeyAlgorithm",
+                    "displayName": "Symmetric Key Algorithm",
+                    "inputType": "comboOrExpression",
+                    "defaultValue": "AES_256",
+                    "required": "false",
+                    "comboValues": [
+                      "AES_256",
+                      "AES_192",
+                      "AES_128",
+                      "CAMELLIA_256",
+                      "CAMELLIA_192",
+                      "CAMELLIA_128",
+                      "TWOFISH",
+                      "CAST5",
+                      "TRIPLE_DES",
+                      "BLOWFISH",
+                      "IDEA"
+                    ],
+                    "helpTip": "Session-key cipher. Default is AES_256"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "compressionAlgorithm",
+                    "displayName": "Compression Algorithm",
+                    "inputType": "comboOrExpression",
+                    "defaultValue": "ZLIB",
+                    "required": "false",
+                    "comboValues": [
+                      "ZLIB",
+                      "ZIP",
+                      "BZIP2",
+                      "UNCOMPRESSED"
+                    ],
+                    "helpTip": "Compression applied before encryption. Default is ZLIB"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "signatureHashAlgorithm",
+                    "displayName": "Signature Hash Algorithm",
+                    "inputType": "comboOrExpression",
+                    "defaultValue": "SHA256",
+                    "required": "false",
+                    "comboValues": [
+                      "SHA256",
+                      "SHA384",
+                      "SHA512",
+                      "SHA224",
+                      "SHA1",
+                      "RIPEMD160"
+                    ],
+                    "helpTip": "Signature digest. Default is SHA256"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "armor",
+                    "displayName": "ASCII Armor",
+                    "inputType": "booleanOrExpression",
+                    "defaultValue": "false",
+                    "required": "false",
+                    "helpTip": "ASCII-armor the output. Default is false (binary .gpg — for files). Set true for text channels (email, HTTP/JSON) or when a partner requires an .asc file."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "integrityCheck",
+                    "displayName": "Integrity Check (MDC)",
+                    "inputType": "booleanOrExpression",
+                    "defaultValue": "true",
+                    "required": "false",
+                    "helpTip": "Add an integrity-protection (MDC) packet. Default is true"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "fileName",
+                    "displayName": "File Name",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Optional file name embedded in the literal-data packet"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Output",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "responseVariable",
+              "displayName": "Output Variable Name",
+              "inputType": "string",
+              "deriveResponseVariable": "true",
+              "required": "true",
+              "helpTip": "Name of the variable to which the output of the operation should be assigned"
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "overwriteBody",
+              "displayName": "Overwrite Message Body",
+              "inputType": "checkbox",
+              "defaultValue": "false",
+              "required": "false",
+              "helpTip": "Replace the Message Body in Message Context with the output of the operation."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

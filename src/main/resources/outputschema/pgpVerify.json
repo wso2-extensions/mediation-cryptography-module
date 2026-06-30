@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for PGP Verify Operation",
+  "description": "Output schema for the cryptography pgpVerify operation.",
+  "properties": {
+    "payload": {
+      "type": "string",
+      "description": "The recovered payload from the signed message: text (outputType=TEXT) or base64 of the bytes (outputType=BASE64). Present in the response variable when overwriteBody is false; when overwriteBody is true it is written to the message body instead."
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Metadata about the pgpVerify operation.",
+      "properties": {
+        "signatureValid": {
+          "type": "boolean",
+          "description": "Whether the signature verified successfully against the supplied public key(s)."
+        },
+        "fileName": {
+          "type": "string",
+          "description": "The original file name embedded in the message, when present (absent for the default _CONSOLE sentinel)."
+        },
+        "modificationTime": {
+          "type": "string",
+          "description": "The modification time embedded in the message as an ISO-8601 instant, when present."
+        }
+      },
+      "required": ["signatureValid"],
+      "additionalProperties": false
+    },
+    "headers": {
+      "type": "object",
+      "description": "Transport headers associated with the response."
+    }
+  },
+  "required": ["payload", "attributes", "headers"],
+  "additionalProperties": false
+}
