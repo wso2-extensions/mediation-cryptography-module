@@ -48,7 +48,7 @@ public class PgpKeyStoreInit extends AbstractConnector implements ManagedLifecyc
         String name = stringParam(messageContext, PGPParameterKey.CONNECTION_NAME);
         String connectionType = stringParam(messageContext, PGPParameterKey.CONNECTION_TYPE);
         if (name == null) {
-            handleException("PGP key store connection requires a 'connectionName'.", messageContext);
+            handleException("PGP key store connection requires a connection name.", messageContext);
         }
         this.connectionName = name;
         String keyIdentifier = stringParam(messageContext, PGPParameterKey.KEY_IDENTIFIER);

@@ -99,8 +99,8 @@ and binary as base64:
   byte-faithfully) or **`Expression`** (read from `sourceContent`).
 - `sourceContent` — used only when `inputSource` is `Expression`: an expression such as `${vars.x}` or
   `${payload.field}`.
-- `inputType` — how the input is carried on the **outbound** ops (encrypt / sign): `TEXT` (default)
-  decodes via `charset`; `BINARY` base64-decodes (the carriage `file.read` uses for a binary file). This
+-  `inputType` — how the input is carried on the **outbound** ops (encrypt / sign): `BINARY` (default)
+   base64-decodes (the carriage `file.read` uses for a binary file); `TEXT` decodes via `charset`. This
   stays an explicit choice — for arbitrary plaintext, text-vs-base64 cannot be inferred safely. **Inbound**
   ops (decrypt / verify) auto-detect armored vs. binary, so there is no `inputType` to set.
 - `responseVariable` — the result is assigned to this variable as an object with a `payload.output`
@@ -131,8 +131,8 @@ lossless (base64 always round-trips); `TEXT` is more convenient but only correct
 
 | Your input | Choose | What the module does |
 |------------|--------|----------------------|
-| Text — a string, JSON, XML, CSV; a text file read as `text/plain` | `TEXT` (default) | takes the bytes from the string using `charset` |
-| Binary — image, PDF, zip, any file read as `application/octet-stream` (so it arrives base64-encoded) | `BINARY` | base64-decodes back to the original bytes |
+| Text — a string, JSON, XML, CSV; a text file read as `text/plain` | `TEXT` | takes the bytes from the string using `charset` |
+| Binary — image, PDF, zip, any file read as `application/octet-stream` (so it arrives base64-encoded) | `BINARY` (default) | base64-decodes back to the original bytes |
 
 **`outputType`** — decrypt / verify / decryptAndVerify (how the recovered plaintext is carried *out*):
 

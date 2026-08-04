@@ -7,7 +7,7 @@
     <parameter name="encryptionConfigKey" description="Name of the PGP Public Key connection holding the recipient's key."/>
     <parameter name="symmetricKeyAlgorithm" description="AES_256 (default), AES_192, AES_128, CAMELLIA_256, CAMELLIA_192, CAMELLIA_128, TWOFISH, CAST5, TRIPLE_DES, BLOWFISH, IDEA."/>
     <parameter name="compressionAlgorithm" description="ZLIB (default), ZIP, BZIP2, UNCOMPRESSED."/>
-    <parameter name="armor" description="ASCII-armor the output. true (default) or false."/>
+    <parameter name="armor" description="ASCII-armor the output. true or false (default)."/>
     <parameter name="integrityCheck" description="Add an integrity (MDC) packet. true (default) or false."/>
     <parameter name="fileName" description="Optional file name embedded in the literal-data packet."/>
     <parameter name="responseVariable" description="Name of the variable to store the operation output."/>

@@ -81,9 +81,9 @@
               "name": "outputType",
               "displayName": "Output Type",
               "inputType": "combo",
-              "defaultValue": "TEXT",
+              "defaultValue": "BINARY",
               "required": "false",
-              "helpTip": "How the recovered output is represented: TEXT (default) or BINARY (base64).",
+              "helpTip": "How the recovered output is represented: TEXT or BINARY (base64, default).",
               "comboValues": [
                 "TEXT",
                 "BINARY"

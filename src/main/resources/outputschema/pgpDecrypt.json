@@ -6,7 +6,7 @@
   "properties": {
     "payload": {
       "type": "string",
-      "description": "The recovered plaintext: text (outputType=TEXT) or base64 of the bytes (outputType=BASE64). Present in the response variable when overwriteBody is false; when overwriteBody is true the plaintext is written to the message body instead (raw application/octet-stream for outputType=BINARY)."
+      "description": "The recovered plaintext: text (outputType=TEXT) or base64 of the bytes (outputType=BINARY). Present in the response variable when overwriteBody is false; when overwriteBody is true the plaintext is written to the message body instead (raw application/octet-stream for outputType=BINARY)."
     },
     "attributes": {
       "type": "object",

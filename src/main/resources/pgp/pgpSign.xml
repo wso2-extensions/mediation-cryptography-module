@@ -7,7 +7,7 @@
     <parameter name="signingConfigKey" description="Name of the PGP Private Key connection used to sign (key and passphrase come from the connection)."/>
     <parameter name="signatureHashAlgorithm" description="SHA256 (default), SHA384, SHA512, SHA224, SHA1, RIPEMD160."/>
     <parameter name="compressionAlgorithm" description="ZLIB (default), ZIP, BZIP2, UNCOMPRESSED."/>
-    <parameter name="armor" description="ASCII-armor the output. true (default) or false."/>
+    <parameter name="armor" description="ASCII-armor the output. true or false (default)."/>
     <parameter name="fileName" description="Optional file name embedded in the literal-data packet."/>
     <parameter name="responseVariable" description="Name of the variable to store the operation output."/>
     <parameter name="overwriteBody" description="Replace the message body with the operation output. true or false (default)."/>

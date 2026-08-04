@@ -6,7 +6,7 @@
   "properties": {
     "payload": {
       "type": "string",
-      "description": "The ciphertext: ASCII-armored text (armor=true) or base64 of the binary ciphertext (armor=false, outputType=BASE64). Present in the response variable when overwriteBody is false; when overwriteBody is true the ciphertext is written to the message body instead (raw application/octet-stream for outputType=BINARY)."
+      "description": "The ciphertext: ASCII-armored text (armor=true) or base64 of the binary ciphertext (armor=false). Present in the response variable when overwriteBody is false; when overwriteBody is true the ciphertext is written to the message body instead (raw application/octet-stream when armor=false)."
     },
     "attributes": {
       "type": "object",

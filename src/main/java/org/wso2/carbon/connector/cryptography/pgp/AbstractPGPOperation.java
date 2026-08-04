@@ -272,7 +272,7 @@ public abstract class AbstractPGPOperation extends AbstractConnectorOperation {
         if (value == null) {
             return null;
         }
-        String str = value.toString();
+        String str = value.toString().trim();
         return str.isEmpty() ? null : str;
     }
 

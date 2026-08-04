@@ -74,7 +74,7 @@
           {
             "type": "attributeGroup",
             "value": {
-              "groupName": "Signing Key (yours)",
+              "groupName": "Signing Key",
               "elements": [
                 {
                   "type": "attribute",
@@ -98,7 +98,7 @@
           {
             "type": "attributeGroup",
             "value": {
-              "groupName": "Recipient Key",
+              "groupName": "Encryption Key",
               "elements": [
                 {
                   "type": "attribute",

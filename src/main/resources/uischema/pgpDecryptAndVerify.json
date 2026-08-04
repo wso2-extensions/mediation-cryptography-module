@@ -43,7 +43,7 @@
           {
             "type": "attributeGroup",
             "value": {
-              "groupName": "Decryption Key (yours)",
+              "groupName": "Decryption Key",
               "elements": [
                 {
                   "type": "attribute",
@@ -65,19 +65,27 @@
             }
           },
           {
-            "type": "attribute",
+            "type": "attributeGroup",
             "value": {
-              "name": "verificationConfigKey",
-              "displayName": "Sender Key",
-              "inputType": "connection",
-              "inputTypeDisplayName": "Add New Key",
-              "inputTypeDescription": "Please select a key type to create a key.",
-              "allowedConnectionTypes": [
-                "PGP_PUBLIC_KEY"
-              ],
-              "defaultValue": "",
-              "required": "true",
-              "helpTip": "The sender's public key connection used to verify. Only PGP Public Key connections are selectable here."
+              "groupName": "Verification Key",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "verificationConfigKey",
+                    "displayName": "Sender Key",
+                    "inputType": "connection",
+                    "inputTypeDisplayName": "Add New Key",
+                    "inputTypeDescription": "Please select a key type to create a key.",
+                    "allowedConnectionTypes": [
+                      "PGP_PUBLIC_KEY"
+                    ],
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "The sender's public key connection used to verify. Only PGP Public Key connections are selectable here."
+                  }
+                }
+              ]
             }
           },
           {
@@ -116,9 +124,9 @@
               "name": "outputType",
               "displayName": "Output Type",
               "inputType": "combo",
-              "defaultValue": "TEXT",
+              "defaultValue": "BINARY",
               "required": "false",
-              "helpTip": "How the recovered output is represented: TEXT (default) or BINARY (base64).",
+              "helpTip": "How the recovered output is represented: TEXT or BINARY (base64, default).",
               "comboValues": [
                 "TEXT",
                 "BINARY"

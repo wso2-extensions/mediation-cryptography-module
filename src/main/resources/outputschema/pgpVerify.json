@@ -6,7 +6,7 @@
   "properties": {
     "payload": {
       "type": "string",
-      "description": "The recovered payload from the signed message: text (outputType=TEXT) or base64 of the bytes (outputType=BASE64). Present in the response variable when overwriteBody is false; when overwriteBody is true it is written to the message body instead."
+      "description": "The recovered payload from the signed message: text (outputType=TEXT) or base64 of the bytes (outputType=BINARY). Present in the response variable when overwriteBody is false; when overwriteBody is true it is written to the message body instead."
     },
     "attributes": {
       "type": "object",
