@@ -1,0 +1,52 @@
+{
+  "connectorName": "cryptography",
+  "connectionName": "PGP_PRIVATE_KEY",
+  "title": "PGP Private Key",
+  "help": "Your own OpenPGP key pair (identity) used for signing and decryption. A secret key embeds its public half, so this single connection holds both. Treat as sensitive — back the key material and passphrase with the registry / a secret vault, and keep it separate from external parties' public keys.",
+  "elements": [
+    {
+      "type": "attribute",
+      "value": {
+        "name": "connectionName",
+        "displayName": "Connection Name",
+        "inputType": "string",
+        "defaultValue": "PGP_PRIVATE_KEY_CONN",
+        "required": "true",
+        "helpTip": "Unique name used to reference this key from operations."
+      }
+    },
+    {
+      "type": "attribute",
+      "value": {
+        "name": "privateKeyPath",
+        "displayName": "Private Key Location",
+        "inputType": "stringOrExpression",
+        "defaultValue": "",
+        "required": "true",
+        "helpTip": "Secret key-ring location, e.g. resources:keys/alice-private.asc (project resource, recommended). Also env:NAME, inline ASCII-armored content, or a file path. Legacy registry (gov:/..., conf:/...) is also supported."
+      }
+    },
+    {
+      "type": "attribute",
+      "value": {
+        "name": "keyIdentifier",
+        "displayName": "Key Identifier",
+        "inputType": "stringOrExpression",
+        "defaultValue": "",
+        "required": "false",
+        "helpTip": "Which key in the ring to sign with: a full fingerprint (40 hex, e.g. from 'gpg --fingerprint'), a 16-hex 64-bit Key ID (e.g. 0x3AA5C34371567BD2), or an exact user ID / e-mail (e.g. alice@example.com). Optional if the ring holds a single key; not used for decryption (matched from the message)."
+      }
+    },
+    {
+      "type": "attribute",
+      "value": {
+        "name": "passphrase",
+        "displayName": "Passphrase",
+        "inputType": "stringOrExpression",
+        "defaultValue": "",
+        "required": "false",
+        "helpTip": "Passphrase protecting the secret key, used by the sign and decrypt operations. Provide via a secure expression such as $secret:pgp.passphrase rather than a hardcoded value. Leave blank for an unprotected key."
+      }
+    }
+  ]
+}

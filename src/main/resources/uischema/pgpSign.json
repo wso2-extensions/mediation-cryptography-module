@@ -1,0 +1,198 @@
+{
+  "connectorName": "cryptography",
+  "operationName": "pgpSign",
+  "title": "PGP Sign",
+  "help": "<h1>PGP Sign</h1><b>Sign the input with your OpenPGP private key (one-pass signed, compressed message).</b>",
+  "elements": [
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "inputType",
+              "displayName": "Input Type",
+              "inputType": "combo",
+              "defaultValue": "BINARY",
+              "required": "false",
+              "helpTip": "How the input is read. BINARY (default) treats the payload as raw bytes — correct for files and any binary content. Use TEXT for text/JSON payloads you want charset-handled (e.g. email bodies).",
+              "comboValues": [
+                "TEXT",
+                "BINARY"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "charset",
+              "displayName": "Charset",
+              "inputType": "stringOrExpression",
+              "defaultValue": "UTF-8",
+              "required": "false",
+              "helpTip": "Charset for TEXT input. Default: UTF-8.",
+              "enableCondition": [
+                {
+                  "inputType": "TEXT"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "inputSource",
+              "displayName": "Input Source",
+              "inputType": "combo",
+              "defaultValue": "Message Body",
+              "required": "false",
+              "helpTip": "Where the input comes from. 'Message Body' (default) processes the raw message payload — correct for files and binary. 'Expression' reads from a variable or field via Source Content.",
+              "comboValues": [
+                "Message Body",
+                "Expression"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "sourceContent",
+              "displayName": "Source Content",
+              "inputType": "stringOrExpression",
+              "defaultValue": "",
+              "required": "false",
+              "helpTip": "The input expression to read from (e.g. ${vars.x} or ${payload.field}). Shown when Input Source is 'Expression'.",
+              "enableCondition": [
+                {
+                  "inputSource": "Expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Signing Key",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "signingConfigKey",
+                    "displayName": "Signing Key",
+                    "inputType": "connection",
+                    "inputTypeDisplayName": "Add New Key",
+                    "inputTypeDescription": "Please select a key type to create a key.",
+                    "allowedConnectionTypes": [
+                      "PGP_PRIVATE_KEY"
+                    ],
+                    "defaultValue": "",
+                    "required": "true",
+                    "helpTip": "Private key connection used to sign."
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "type": "attributeGroup",
+            "value": {
+              "groupName": "Signing Options",
+              "elements": [
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "signatureHashAlgorithm",
+                    "displayName": "Signature Hash Algorithm",
+                    "inputType": "comboOrExpression",
+                    "defaultValue": "SHA256",
+                    "required": "false",
+                    "comboValues": [
+                      "SHA256",
+                      "SHA384",
+                      "SHA512",
+                      "SHA224",
+                      "SHA1",
+                      "RIPEMD160"
+                    ],
+                    "helpTip": "Signature digest. Default is SHA256"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "compressionAlgorithm",
+                    "displayName": "Compression Algorithm",
+                    "inputType": "comboOrExpression",
+                    "defaultValue": "ZLIB",
+                    "required": "false",
+                    "comboValues": [
+                      "ZLIB",
+                      "ZIP",
+                      "BZIP2",
+                      "UNCOMPRESSED"
+                    ],
+                    "helpTip": "Compression applied to the signed message. Default is ZLIB"
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "armor",
+                    "displayName": "ASCII Armor",
+                    "inputType": "booleanOrExpression",
+                    "defaultValue": "false",
+                    "required": "false",
+                    "helpTip": "ASCII-armor the output. Default is false (binary .gpg — for files). Set true for text channels (email, HTTP/JSON) or when a partner requires an .asc file."
+                  }
+                },
+                {
+                  "type": "attribute",
+                  "value": {
+                    "name": "fileName",
+                    "displayName": "File Name",
+                    "inputType": "stringOrExpression",
+                    "defaultValue": "",
+                    "required": "false",
+                    "helpTip": "Optional file name embedded in the literal-data packet"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Output",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "responseVariable",
+              "displayName": "Output Variable Name",
+              "inputType": "string",
+              "deriveResponseVariable": "true",
+              "required": "true",
+              "helpTip": "Name of the variable to which the output of the operation should be assigned"
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "overwriteBody",
+              "displayName": "Overwrite Message Body",
+              "inputType": "checkbox",
+              "defaultValue": "false",
+              "required": "false",
+              "helpTip": "Replace the Message Body in Message Context with the output of the operation."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

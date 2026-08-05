@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for PGP Decrypt Operation",
+  "description": "Output schema for the cryptography pgpDecrypt operation.",
+  "properties": {
+    "payload": {
+      "type": "string",
+      "description": "The recovered plaintext: text (outputType=TEXT) or base64 of the bytes (outputType=BINARY). Present in the response variable when overwriteBody is false; when overwriteBody is true the plaintext is written to the message body instead (raw application/octet-stream for outputType=BINARY)."
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Metadata about the pgpDecrypt operation, including any file name and modification time embedded in the OpenPGP literal-data packet.",
+      "properties": {
+        "fileName": {
+          "type": "string",
+          "description": "The original file name embedded in the message, when present (absent for the default _CONSOLE sentinel)."
+        },
+        "modificationTime": {
+          "type": "string",
+          "description": "The modification time embedded in the message as an ISO-8601 instant, when present."
+        }
+      },
+      "additionalProperties": false
+    },
+    "headers": {
+      "type": "object",
+      "description": "Transport headers associated with the response."
+    }
+  },
+  "required": ["payload", "attributes", "headers"],
+  "additionalProperties": false
+}

@@ -1,0 +1,41 @@
+{
+  "connectorName": "cryptography",
+  "connectionName": "PGP_PUBLIC_KEY",
+  "title": "PGP Public Key",
+  "help": "An external party's OpenPGP public key — a recipient you encrypt to or a signer you verify. Not secret; can live in a plain registry path. Create one connection per party for isolation and independent rotation.",
+  "elements": [
+    {
+      "type": "attribute",
+      "value": {
+        "name": "connectionName",
+        "displayName": "Connection Name",
+        "inputType": "string",
+        "defaultValue": "PGP_PUBLIC_KEY_CONN",
+        "required": "true",
+        "helpTip": "Unique name used to reference this key from operations."
+      }
+    },
+    {
+      "type": "attribute",
+      "value": {
+        "name": "publicKeyPath",
+        "displayName": "Public Key Location",
+        "inputType": "stringOrExpression",
+        "defaultValue": "",
+        "required": "true",
+        "helpTip": "Public key-ring location, e.g. resources:keys/partner.asc (project resource, recommended). Also env:NAME, inline ASCII-armored content, or a file path. Legacy registry (gov:/..., conf:/...) is also supported."
+      }
+    },
+    {
+      "type": "attribute",
+      "value": {
+        "name": "keyIdentifier",
+        "displayName": "Key Identifier",
+        "inputType": "stringOrExpression",
+        "defaultValue": "",
+        "required": "false",
+        "helpTip": "Which key to encrypt to: a full fingerprint (40 hex, e.g. from 'gpg --fingerprint'), a 16-hex 64-bit Key ID (e.g. 0x7B9E1A2C3D4E5F6A), or an exact user ID / e-mail (e.g. bob@example.com). Required for encryption; not used for signature verification (matched from the signature). Optional if the ring holds a single key."
+      }
+    }
+  ]
+}

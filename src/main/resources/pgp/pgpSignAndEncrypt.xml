@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="pgpSignAndEncrypt" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="inputSource" description="Where the input comes from: 'Message Body' (default, the raw payload) or 'Expression' (read from sourceContent)."/>
+    <parameter name="sourceContent" description="Input to process: an expression such as ${payload} (default), ${vars.x}, or a property. Falls back to the payload."/>
+    <parameter name="inputType" description="How the input is represented: TEXT or BINARY (base64)."/>
+    <parameter name="charset" description="Charset for TEXT input. Default: UTF-8."/>
+    <parameter name="signingConfigKey" description="Name of the PGP Private Key connection used to sign (key and passphrase come from the connection)."/>
+    <parameter name="encryptionConfigKey" description="Name of the PGP Public Key connection holding the recipient's key."/>
+    <parameter name="symmetricKeyAlgorithm" description="AES_256 (default), AES_192, AES_128, CAMELLIA_256, CAMELLIA_192, CAMELLIA_128, TWOFISH, CAST5, TRIPLE_DES, BLOWFISH, IDEA."/>
+    <parameter name="compressionAlgorithm" description="ZLIB (default), ZIP, BZIP2, UNCOMPRESSED."/>
+    <parameter name="signatureHashAlgorithm" description="SHA256 (default), SHA384, SHA512, SHA224, SHA1, RIPEMD160."/>
+    <parameter name="armor" description="ASCII-armor the output. true or false (default)."/>
+    <parameter name="integrityCheck" description="Add an integrity (MDC) packet. true (default) or false."/>
+    <parameter name="fileName" description="Optional file name embedded in the literal-data packet."/>
+    <parameter name="responseVariable" description="Name of the variable to store the operation output."/>
+    <parameter name="overwriteBody" description="Replace the message body with the operation output. true or false (default)."/>
+    <sequence>
+        <property name="inputSource" expression="$func:inputSource"/>
+        <property name="sourceContent" expression="$func:sourceContent"/>
+        <property name="inputType" expression="$func:inputType"/>
+        <property name="charset" expression="$func:charset"/>
+        <property name="signingConfigKey" expression="$func:signingConfigKey"/>
+        <property name="encryptionConfigKey" expression="$func:encryptionConfigKey"/>
+        <property name="symmetricKeyAlgorithm" expression="$func:symmetricKeyAlgorithm"/>
+        <property name="compressionAlgorithm" expression="$func:compressionAlgorithm"/>
+        <property name="signatureHashAlgorithm" expression="$func:signatureHashAlgorithm"/>
+        <property name="armor" expression="$func:armor"/>
+        <property name="integrityCheck" expression="$func:integrityCheck"/>
+        <property name="fileName" expression="$func:fileName"/>
+        <property name="responseVariable" expression="$func:responseVariable"/>
+        <property name="overwriteBody" expression="$func:overwriteBody"/>
+        <cryptography.invokeConnection configKey="{${props.synapse.signingConfigKey}}"/>
+        <cryptography.invokeConnection configKey="{${props.synapse.encryptionConfigKey}}"/>
+        <class name="org.wso2.carbon.connector.cryptography.pgp.PGPSignAndEncrypt"/>
+    </sequence>
+</template>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="config" type="synapse/template">
+    <subComponents>
+        <component name="init">
+            <file>init.xml</file>
+            <description>Initialise a PGP key store connection (private identity or public trust store).</description>
+            <hidden>true</hidden>
+        </component>
+        <component name="invokeConnection">
+            <file>invokeConnection.xml</file>
+            <description>Resolve and initialise a referenced PGP key store connection.</description>
+            <hidden>true</hidden>
+        </component>
+    </subComponents>
+</component>

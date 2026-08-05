@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connector>
+    <component name="cryptography" package="org.wso2.carbon.connector.cryptography">
+        <dependency component="config"/>
+        <dependency component="pgp"/>
+        <description>
+            WSO2 MI Cryptography module. Hosts one component per cryptography implementation;
+            the current release provides PGP (OpenPGP) encrypt, decrypt, sign, verify, and the
+            combined sign-then-encrypt / decrypt-then-verify message-mediation operations,
+            built on Bouncy Castle.
+        </description>
+    </component>
+    <displayName>Cryptography</displayName>
+    <icon>icon/icon-small.png</icon>
+    <type>module</type>
+</connector>

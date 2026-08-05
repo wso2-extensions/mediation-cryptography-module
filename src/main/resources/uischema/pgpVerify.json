@@ -1,0 +1,143 @@
+{
+  "connectorName": "cryptography",
+  "operationName": "pgpVerify",
+  "title": "PGP Verify",
+  "help": "<h1>PGP Verify</h1><b>Verify a signed message with the sender's OpenPGP public key. The result variable carries the recovered payload and a signatureValid flag.</b>",
+  "elements": [
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "inputSource",
+              "displayName": "Input Source",
+              "inputType": "combo",
+              "defaultValue": "Message Body",
+              "required": "false",
+              "helpTip": "Where the input comes from. 'Message Body' (default) processes the raw message payload — correct for files and binary. 'Expression' reads from a variable or field via Source Content.",
+              "comboValues": [
+                "Message Body",
+                "Expression"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "sourceContent",
+              "displayName": "Source Content",
+              "inputType": "stringOrExpression",
+              "defaultValue": "",
+              "required": "false",
+              "helpTip": "The input expression to read from (e.g. ${vars.x} or ${payload.field}). Shown when Input Source is 'Expression'.",
+              "enableCondition": [
+                {
+                  "inputSource": "Expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "verificationConfigKey",
+              "displayName": "Signer Key",
+              "inputType": "connection",
+              "inputTypeDisplayName": "Add New Key",
+              "inputTypeDescription": "Please select a key type to create a key.",
+              "allowedConnectionTypes": [
+                "PGP_PUBLIC_KEY"
+              ],
+              "defaultValue": "",
+              "required": "true",
+              "helpTip": "Public key connection holding the signer's public key."
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "requireValidSignerKey",
+              "displayName": "Require Valid Signer Key",
+              "inputType": "checkbox",
+              "defaultValue": "true",
+              "required": "false",
+              "helpTip": "Reject signatures made with a revoked or expired signer key. Keep enabled; disable only to accept signatures from legacy partners whose keys have lapsed."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Advanced",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "outputType",
+              "displayName": "Output Type",
+              "inputType": "combo",
+              "defaultValue": "BINARY",
+              "required": "false",
+              "helpTip": "How the recovered output is represented: TEXT or BINARY (base64, default).",
+              "comboValues": [
+                "TEXT",
+                "BINARY"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "charset",
+              "displayName": "Charset",
+              "inputType": "stringOrExpression",
+              "defaultValue": "UTF-8",
+              "required": "false",
+              "helpTip": "Charset for TEXT output. Default: UTF-8.",
+              "enableCondition": [
+                {
+                  "outputType": "TEXT"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Output",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "responseVariable",
+              "displayName": "Output Variable Name",
+              "inputType": "string",
+              "deriveResponseVariable": "true",
+              "required": "true",
+              "helpTip": "Name of the variable to which the output of the operation should be assigned"
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "overwriteBody",
+              "displayName": "Overwrite Message Body",
+              "inputType": "checkbox",
+              "defaultValue": "false",
+              "required": "false",
+              "helpTip": "Replace the Message Body in Message Context with the output of the operation."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

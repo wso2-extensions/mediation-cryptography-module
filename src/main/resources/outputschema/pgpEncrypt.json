@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "title": "Output Schema for PGP Encrypt Operation",
+  "description": "Output schema for the cryptography pgpEncrypt operation.",
+  "properties": {
+    "payload": {
+      "type": "string",
+      "description": "The ciphertext: ASCII-armored text (armor=true) or base64 of the binary ciphertext (armor=false). Present in the response variable when overwriteBody is false; when overwriteBody is true the ciphertext is written to the message body instead (raw application/octet-stream when armor=false)."
+    },
+    "attributes": {
+      "type": "object",
+      "description": "Metadata about the pgpEncrypt operation."
+    },
+    "headers": {
+      "type": "object",
+      "description": "Transport headers associated with the response."
+    }
+  },
+  "required": ["payload", "attributes", "headers"],
+  "additionalProperties": false
+}

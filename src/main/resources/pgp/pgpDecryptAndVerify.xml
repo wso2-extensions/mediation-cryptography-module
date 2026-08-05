@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template name="pgpDecryptAndVerify" xmlns="http://ws.apache.org/ns/synapse">
+    <parameter name="inputSource" description="Where the input comes from: 'Message Body' (default, the raw payload) or 'Expression' (read from sourceContent)."/>
+    <parameter name="sourceContent" description="Input to process: an expression such as ${payload} (default), ${vars.x}, or a property. Falls back to the payload."/>
+    <parameter name="charset" description="Charset for TEXT input/output. Default: UTF-8."/>
+    <parameter name="outputType" description="How the recovered output is represented: TEXT (default) or BINARY (base64)."/>
+    <parameter name="decryptionConfigKey" description="Name of the PGP Private Key connection used to decrypt (key and passphrase come from the connection)."/>
+    <parameter name="verificationConfigKey" description="Name of the PGP Public Key connection holding the signer's key."/>
+    <parameter name="requireIntegrity" description="Reject messages with no integrity-protection (MDC) packet. true (default) or false."/>
+    <parameter name="requireValidSignerKey" description="Reject signatures made with a revoked or expired signer key. true (default) or false."/>
+    <parameter name="responseVariable" description="Name of the variable to store the operation output."/>
+    <parameter name="overwriteBody" description="Replace the message body with the operation output. true or false (default)."/>
+    <sequence>
+        <property name="inputSource" expression="$func:inputSource"/>
+        <property name="sourceContent" expression="$func:sourceContent"/>
+        <property name="charset" expression="$func:charset"/>
+        <property name="outputType" expression="$func:outputType"/>
+        <property name="decryptionConfigKey" expression="$func:decryptionConfigKey"/>
+        <property name="verificationConfigKey" expression="$func:verificationConfigKey"/>
+        <property name="requireIntegrity" expression="$func:requireIntegrity"/>
+        <property name="requireValidSignerKey" expression="$func:requireValidSignerKey"/>
+        <property name="responseVariable" expression="$func:responseVariable"/>
+        <property name="overwriteBody" expression="$func:overwriteBody"/>
+        <cryptography.invokeConnection configKey="{${props.synapse.decryptionConfigKey}}"/>
+        <cryptography.invokeConnection configKey="{${props.synapse.verificationConfigKey}}"/>
+        <class name="org.wso2.carbon.connector.cryptography.pgp.PGPDecryptAndVerify"/>
+    </sequence>
+</template>

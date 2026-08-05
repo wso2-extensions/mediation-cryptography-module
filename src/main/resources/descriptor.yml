@@ -1,0 +1,11 @@
+# Connector Descriptor File
+# Declares external dependencies the MI runtime must add to the connector's classpath.
+#
+# This module bundles mi-connector-core in lib/ (see assemble-connector.xml); Bouncy Castle,
+# synapse and gson are shipped by the MI runtime. No extra runtime dependencies are required.
+
+dependencies: []
+
+repositories:
+  - id: "wso2-nexus"
+    url: "https://maven.wso2.org/nexus/content/groups/wso2-public/"

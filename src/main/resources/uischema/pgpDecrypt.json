@@ -1,0 +1,143 @@
+{
+  "connectorName": "cryptography",
+  "operationName": "pgpDecrypt",
+  "title": "PGP Decrypt",
+  "help": "<h1>PGP Decrypt</h1><b>Decrypt the input using your OpenPGP private key and passphrase.</b>",
+  "elements": [
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "General",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "inputSource",
+              "displayName": "Input Source",
+              "inputType": "combo",
+              "defaultValue": "Message Body",
+              "required": "false",
+              "helpTip": "Where the input comes from. 'Message Body' (default) processes the raw message payload — correct for files and binary. 'Expression' reads from a variable or field via Source Content.",
+              "comboValues": [
+                "Message Body",
+                "Expression"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "sourceContent",
+              "displayName": "Source Content",
+              "inputType": "stringOrExpression",
+              "defaultValue": "",
+              "required": "false",
+              "helpTip": "The input expression to read from (e.g. ${vars.x} or ${payload.field}). Shown when Input Source is 'Expression'.",
+              "enableCondition": [
+                {
+                  "inputSource": "Expression"
+                }
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "decryptionConfigKey",
+              "displayName": "Private Key",
+              "inputType": "connection",
+              "inputTypeDisplayName": "Add New Key",
+              "inputTypeDescription": "Please select a key type to create a key.",
+              "allowedConnectionTypes": [
+                "PGP_PRIVATE_KEY"
+              ],
+              "defaultValue": "",
+              "required": "true",
+              "helpTip": "Private key connection used to decrypt. The right key is matched automatically from the message."
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "requireIntegrity",
+              "displayName": "Require Integrity Protection",
+              "inputType": "checkbox",
+              "defaultValue": "true",
+              "required": "false",
+              "helpTip": "Reject messages with no integrity-protection (MDC) packet. Keep enabled; disable only for legacy partners whose tools cannot produce an MDC."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Advanced",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "outputType",
+              "displayName": "Output Type",
+              "inputType": "combo",
+              "defaultValue": "BINARY",
+              "required": "false",
+              "helpTip": "How the recovered output is represented: TEXT or BINARY (base64, default).",
+              "comboValues": [
+                "TEXT",
+                "BINARY"
+              ]
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "charset",
+              "displayName": "Charset",
+              "inputType": "stringOrExpression",
+              "defaultValue": "UTF-8",
+              "required": "false",
+              "helpTip": "Charset for TEXT output. Default: UTF-8.",
+              "enableCondition": [
+                {
+                  "outputType": "TEXT"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "type": "attributeGroup",
+      "value": {
+        "groupName": "Output",
+        "elements": [
+          {
+            "type": "attribute",
+            "value": {
+              "name": "responseVariable",
+              "displayName": "Output Variable Name",
+              "inputType": "string",
+              "deriveResponseVariable": "true",
+              "required": "true",
+              "helpTip": "Name of the variable to which the output of the operation should be assigned"
+            }
+          },
+          {
+            "type": "attribute",
+            "value": {
+              "name": "overwriteBody",
+              "displayName": "Overwrite Message Body",
+              "inputType": "checkbox",
+              "defaultValue": "false",
+              "required": "false",
+              "helpTip": "Replace the Message Body in Message Context with the output of the operation."
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
