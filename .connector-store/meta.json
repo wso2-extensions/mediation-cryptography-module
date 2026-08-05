@@ -13,46 +13,5 @@
     "labels": [
         "module"
     ],
-    "releases": [
-        {
-            "tagName": "v1.0.0",
-            "products": [
-                "MI 4.6.0"
-            ],
-            "operations": [
-                {
-                    "name": "pgpEncrypt",
-                    "description": "Encrypt the input for a recipient using their PGP public key.",
-                    "isHidden": false
-                },
-                {
-                    "name": "pgpDecrypt",
-                    "description": "Decrypt the input using your PGP private key and passphrase.",
-                    "isHidden": false
-                },
-                {
-                    "name": "pgpSign",
-                    "description": "Sign the input with your PGP private key.",
-                    "isHidden": false
-                },
-                {
-                    "name": "pgpVerify",
-                    "description": "Verify a signed message with the sender's PGP public key.",
-                    "isHidden": false
-                },
-                {
-                    "name": "pgpSignAndEncrypt",
-                    "description": "Sign with your private key, then encrypt for the recipient (outbound).",
-                    "isHidden": false
-                },
-                {
-                    "name": "pgpDecryptAndVerify",
-                    "description": "Decrypt with your private key, then verify the sender's signature (inbound).",
-                    "isHidden": false
-                }
-            ],
-            "connections": [],
-            "isHidden": false
-        }
-    ]
+    "releases": []
 }
