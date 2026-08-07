@@ -3,7 +3,7 @@
     "owner": "WSO2",
     "product": "MI",
     "category": "Developer Tools",
-    "documentationUrl": "https://mi.docs.wso2.com/en/latest/reference/connectors/",
+    "documentationUrl": "https://mi.docs.wso2.com/en/latest/reference/connectors/cryptography-module/cryptography-module-overview/",
     "mavenGroupId": "org.wso2.integration.connector",
     "mavenArtifactId": "mi-cryptography-module",
     "description": "Cryptography module for WSO2 Integrator: MI. Provides in-line OpenPGP (RFC 9580 / RFC 4880) encrypt, decrypt, sign, verify and the combined sign-then-encrypt / decrypt-then-verify message-mediation operations, built on Bouncy Castle.",
@@ -11,7 +11,9 @@
     "rank": 1,
     "type": "Connector",
     "labels": [
-        "module"
+        "module",
+        "Cryptography",
+        "PGP"
     ],
     "releases": []
 }
