@@ -5,7 +5,7 @@
 
     <groupId>org.wso2.integration.connector</groupId>
     <artifactId>mi-cryptography-module</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>WSO2 MI - Cryptography Module</name>
@@ -19,7 +19,7 @@
         <connection>scm:git:https://github.com/wso2-extensions/mediation-cryptography-module.git</connection>
         <url>https://github.com/wso2-extensions/mediation-cryptography-module</url>
         <developerConnection>scm:git:https://github.com/wso2-extensions/mediation-cryptography-module.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
