@@ -13,5 +13,13 @@
     "labels": [
         "module"
     ],
-    "releases": []
+    "releases": [
+        {
+            "tagName": "v1.0.0",
+            "products": [
+                "MI 4.4.0"
+            ],
+            "connections": []
+        }
+    ]
 }
